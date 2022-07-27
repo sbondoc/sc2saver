@@ -16,7 +16,7 @@ void listen_bank(char *path)
 	}
 	fclose(fp);
 	/* Display status message. */
-	fprintf(stdout, "SC2Saver is currently running.\n");
+	fprintf(stdout, "SC2Saver is currently listening to bank file at:\n%s\n", path);
 	fflush(stdout);
 	/* Init bank file stat. */
 	struct stat attr;
