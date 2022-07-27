@@ -1,1 +1,2 @@
+/* "icon.rc" - Resource script for Windows build. */
 icon ICON "../res/img/icon.ico"
