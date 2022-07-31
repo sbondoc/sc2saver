@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <windows.h>
 #include "system.h"
 /* Watch bank file for changes. */
 void listen_bank(char *path)
@@ -35,5 +36,10 @@ void listen_bank(char *path)
 			press_key(0x0D);
 		}
 		old = new;
+		/*
+		Game loop = 1 / 16 s
+		Faster speed = 1.4x
+ 		*/
+		Sleep(44);
 	}
 }
