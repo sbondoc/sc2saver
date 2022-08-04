@@ -20,25 +20,26 @@ SRC := $(shell find -regex ".*\/$(DIR_SRC)\/.*\.c")
 SRC := $(subst ./,,$(SRC))
 SRC := $(subst $(FILE_MAIN),,$(SRC))
 OBJ := $(patsubst $(DIR_SRC)/%.c,$(DIR_OBJ)/%.o,$(SRC))
-OBJ_DBG := $(patsubst %.o,%(SFX_DBG).o,$(OBJ))
+OBJ_DBG := $(patsubst %.o,%$(SFX_DBG).o,$(OBJ))
 RES := $(shell find -regex ".*\/$(DIR_SRC)\/.*\.rc")
 RES := $(subst ./,,$(RES))
 RES := $(patsubst $(DIR_SRC)/%.rc,$(DIR_OBJ)/%.res,$(RES))
-RES_DBG := $(patsubst %.res,%(SFX_DBG).res,$(RES))
+RES_DBG := $(patsubst %.res,%$(SFX_DBG).res,$(RES))
 
-.phony: all run debug rundbg clean test
+.phony: all run alldbg rundbg clean test
 all: $(EXEC)
 run: $(EXEC)
 	./$<
 alldbg: FLAGS += $(DFLAGS)
+alldbg: $(EXEC_DBG)
 clean: FORCE
 	rm -rf $(DIR_BUILD)
 test:
-	@echo $(RES)
+	@echo $(OBJ_DBG)
 FORCE:
 $(DIR_BUILD):
 	mkdir $@
-$(DIR_OBJ)/%.o $(DIR_OBJ)/%(SFX_DBG).o: $(DIR_SRC)/%.c | $(DIR_OBJ)
+$(DIR_OBJ)/%.o $(DIR_OBJ)/%$(SFX_DBG).o: $(DIR_SRC)/%.c | $(DIR_OBJ)
 	$(CC) $(FLAGS) -c -o $@ $<
 $(DIR_OBJ)/%.res $(DIR_OBJ)/%(SFX_DBT).res: $(DIR_SRC)/%.rc | $(DIR_OBJ)
 	$(CC_RES) $(RESFLAGS) -o $@ $<
