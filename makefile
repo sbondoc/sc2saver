@@ -41,7 +41,7 @@ $(DIR_BUILD):
 	mkdir $@
 $(DIR_OBJ)/%.o $(DIR_OBJ)/%$(SFX_DBG).o: $(DIR_SRC)/%.c | $(DIR_OBJ)
 	$(CC) $(FLAGS) -c -o $@ $<
-$(DIR_OBJ)/%.res $(DIR_OBJ)/%(SFX_DBT).res: $(DIR_SRC)/%.rc | $(DIR_OBJ)
+$(DIR_OBJ)/%.res $(DIR_OBJ)/%$(SFX_DBG).res: $(DIR_SRC)/%.rc | $(DIR_OBJ)
 	$(CC_RES) $(RESFLAGS) -o $@ $<
 $(EXEC): $(FILE_MAIN) $(OBJ) $(RES) | $(DIR_BIN)
 	$(CC) $(FLAGS) -o $@ $^
